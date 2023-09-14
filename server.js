@@ -66,15 +66,44 @@ app.post('/api/notes', (req, res) => {
 
 // Handle DELETE requests for deleting a note with a specified ID.
 app.delete('/api/notes/:id', (req, res) => {
-  // You need to implement the logic for deleting a note based on the specified ID.
-  // This code block should handle the deletion process and update the JSON file accordingly.
+  const idToDelete = req.params.id; // Get the ID to delete from the URL parameters.
+
+  // Read the JSON file.
+  fs.readFile(path.join(__dirname, 'db/db.json'), 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+    const notes = JSON.parse(data);
+
+    // Find the index of the note to delete based on the ID.
+    const noteIndexToDelete = notes.findIndex((note) => note.id === idToDelete);
+
+    if (noteIndexToDelete === -1) {
+      // If the note with the specified ID is not found, return a 404 status.
+      return res.status(404).json({ error: 'Note not found' });
+    }
+
+    // Remove the note from the array.
+    notes.splice(noteIndexToDelete, 1);
+
+    // Write the updated notes array back to the JSON file.
+    fs.writeFile(path.join(__dirname, 'db/db.json'), JSON.stringify(notes), (err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+      // Respond with a success status.
+      res.json({ message: 'Note deleted successfully' });
+    });
+  });
 });
+
 
 // Function to generate a unique ID for a new note.
 function generateUniqueId(existingNotes) {
-  // You need to implement your logic to generate a unique ID here.
-  // You can use packages like 'uuid' for a more robust solution.
-  // For simplicity, you can use a timestamp-based ID for now.
   return Date.now().toString();
 }
 
