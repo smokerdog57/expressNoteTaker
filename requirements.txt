@@ -117,14 +117,11 @@ Deployment to Heroku
 
 User Interaction: The user interacts with the web page by clicking the delete button associated with a specific note.
 
-Event Handling (index.js): JavaScript code (likely in your index.js file) handles the click event on the delete button and initiates the process to delete the note.
+Event Handling (index.js): JavaScript code in the index.js file handles the click event on the delete button and initiates the process to delete the note.
 
 API Request: When the delete button is clicked, JavaScript code sends an AJAX request (typically a DELETE request) to the server to delete the note. The request would be sent to a specific API route that handles note deletion.
 
 Server Route (server.js): In your server.js file, you should have an API route to handle DELETE requests for deleting notes. It would look something like this:
-
-javascript
-Copy code
 app.delete('/api/notes/:id', (req, res) => {
   // Handle the DELETE request and delete the note with the specified ID.
 });
@@ -139,59 +136,5 @@ Client-Side Update (index.js): Once the client receives a successful response fr
 User Feedback: Optionally, you can provide user feedback, such as displaying a message confirming the deletion of the note.
 
 In summary, when the user clicks the delete button, it triggers a series of actions that involve client-side JavaScript sending a DELETE request to the server, the server handling the request, updating the data store, and responding to the client. Finally, the client-side JavaScript updates the user interface to reflect the deleted note.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
