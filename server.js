@@ -16,8 +16,8 @@ app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/notes.html'));
 });
 
-// Serve the 'index.html' page for the root URL.
-app.get('/', (req, res) => {
+// Serve the 'index.html' page for the wildcard (*)
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
